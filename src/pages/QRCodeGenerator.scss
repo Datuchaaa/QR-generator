@@ -2,8 +2,29 @@ body {
   background-color: #24232c;
   button {
     background-color: #a4ffaf;
+    padding: 10px;
+    color: #24232c;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
   }
   h1 {
     color: #a4ffaf;
   }
+
+  form {
+    input {
+      padding: 8px;
+      margin-bottom: 8px;
+    }
+
+    .error {
+      color: red;
+    }
+  }
+}
+
+img {
+  max-width: 300px;
+  margin-top: 20px;
 }
