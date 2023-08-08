@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import QRCode from 'qrcode';
 import ExportQRImage from '../components/ExportQRImage';
+import './QRCodeGenerator.scss'
 
 const QRCodeGenerator: React.FC = () => {
   const [text, setText] = useState('');
@@ -11,7 +12,7 @@ const QRCodeGenerator: React.FC = () => {
       const qrCodeData = await QRCode.toDataURL(text);
       setQRCodeData(qrCodeData);
     } catch (error) {
-      console.error('Error generating QR code:', error);
+      
     }
   };
 
