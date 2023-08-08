@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import QRCode from 'qrcode';
+import ExportQRImage from '../components/ExportQRImage';
 
-const Home: React.FC = () => {
+const QRCodeGenerator: React.FC = () => {
   const [text, setText] = useState('');
   const [qrCodeData, setQRCodeData] = useState<string | null>(null);
 
@@ -27,8 +28,9 @@ const Home: React.FC = () => {
         <button onClick={generateQRCode}>Generate QR Code</button>
       </div>
       {qrCodeData && <img src={qrCodeData} alt="QR Code" />}
+      {qrCodeData && <ExportQRImage qrCodeData={qrCodeData} />}
     </div>
   );
 };
 
-export default Home;
+export default QRCodeGenerator;
