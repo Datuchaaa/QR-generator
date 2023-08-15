@@ -4,6 +4,8 @@ import * as Yup from "yup";
 import QRCode from "qrcode";
 import ExportQRImage from "../components/ExportQRImage";
 import "./QRCodeGenerator.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowsRotate } from "@fortawesome/free-solid-svg-icons";
 
 const QRCodeGenerator: React.FC = () => {
   const [qrCodeData, setQRCodeData] = useState<string | null>(null);
@@ -26,9 +28,9 @@ const QRCodeGenerator: React.FC = () => {
     <div>
       <h1>QR Code Generator</h1>
       <Formik
-        initialValues={{ text: '' }}
+        initialValues={{ text: "" }}
         validationSchema={Yup.object({
-          text: Yup.string().required('Text is required'),
+          text: Yup.string().required("Text is required"),
         })}
         onSubmit={async (values, { setSubmitting }) => {
           const qrCodeData = await generateQRCode(values.text);
@@ -39,10 +41,12 @@ const QRCodeGenerator: React.FC = () => {
         {({ isSubmitting, resetForm }) => (
           <Form>
             <div>
-              <Field
-                type="text"
-                name="text"
-                placeholder="Enter text here"
+              <Field type="text" name="text" placeholder="Enter text here" />
+              <FontAwesomeIcon
+              className="refresh-icon"
+                type="button"
+                onClick={() => handleRefresh(resetForm)}
+                icon={faArrowsRotate}
               />
               <ErrorMessage name="text" component="div" className="error" />
             </div>
@@ -50,12 +54,7 @@ const QRCodeGenerator: React.FC = () => {
               <button type="submit" disabled={isSubmitting}>
                 Generate QR Code
               </button>
-              <button
-                type="button"
-                onClick={() => handleRefresh(resetForm)}
-              >
-                Refresh
-              </button>
+             
             </div>
           </Form>
         )}
