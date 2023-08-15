@@ -1,4 +1,6 @@
 import React from 'react';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDownload } from "@fortawesome/free-solid-svg-icons";
 
 interface ExportQRImageProps {
   qrCodeData: string | null;
@@ -16,7 +18,7 @@ const ExportQRImage: React.FC<ExportQRImageProps> = ({ qrCodeData }) => {
 
   return (
     <div>
-      <button onClick={downloadQRCode}>Download QR Code</button>
+      <FontAwesomeIcon className='download-icon' onClick={downloadQRCode} icon={faDownload} />
     </div>
   );
 };
