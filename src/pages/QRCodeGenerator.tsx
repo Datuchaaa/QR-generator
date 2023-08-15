@@ -17,36 +17,51 @@ const QRCodeGenerator: React.FC = () => {
     }
   };
 
+  const handleRefresh = (resetForm: () => void) => {
+    setQRCodeData(null);
+    resetForm();
+  };
+
   return (
     <div>
-      <div className="container">
-        <h1>QR Code Generator</h1>
-        <Formik
-          initialValues={{ text: "" }}
-          validationSchema={Yup.object({
-            text: Yup.string().required("Text is required"),
-          })}
-          onSubmit={async (values, { setSubmitting }) => {
-            const qrCodeData = await generateQRCode(values.text);
-            setQRCodeData(qrCodeData);
-            setSubmitting(false);
-          }}
-        >
-          {({ isSubmitting }) => (
-            <Form>
-              <div>
-                <Field type="text" name="text" placeholder="Enter text here" />
-                <ErrorMessage name="text" component="div" className="error" />
-              </div>
+      <h1>QR Code Generator</h1>
+      <Formik
+        initialValues={{ text: '' }}
+        validationSchema={Yup.object({
+          text: Yup.string().required('Text is required'),
+        })}
+        onSubmit={async (values, { setSubmitting }) => {
+          const qrCodeData = await generateQRCode(values.text);
+          setQRCodeData(qrCodeData);
+          setSubmitting(false);
+        }}
+      >
+        {({ isSubmitting, resetForm }) => (
+          <Form>
+            <div>
+              <Field
+                type="text"
+                name="text"
+                placeholder="Enter text here"
+              />
+              <ErrorMessage name="text" component="div" className="error" />
+            </div>
+            <div className="button-group">
               <button type="submit" disabled={isSubmitting}>
                 Generate QR Code
               </button>
-            </Form>
-          )}
-        </Formik>
-        {qrCodeData && <img src={qrCodeData} alt="QR Code" />}
-        {qrCodeData && <ExportQRImage qrCodeData={qrCodeData} />}
-      </div>
+              <button
+                type="button"
+                onClick={() => handleRefresh(resetForm)}
+              >
+                Refresh
+              </button>
+            </div>
+          </Form>
+        )}
+      </Formik>
+      {qrCodeData && <img src={qrCodeData} alt="QR Code" />}
+      {qrCodeData && <ExportQRImage qrCodeData={qrCodeData} />}
     </div>
   );
 };
